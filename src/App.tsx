@@ -1,16 +1,13 @@
-import React from 'react'
-import { Footer } from './components/Footer/Footer'
-import { Logo } from './components/Logo/Logo'
-import styles from './App.module.css'
+import { Alert } from "./components/Alert";
 
-const App = () => {
+export default function App() {
   return (
-    <div className={styles.app}>
-      <Logo />
-      <div className={styles.content} />
-      <Footer />
+    <div className="App">
+      <h1>Hello KratosGado</h1>
+      <h2>Start editing to see some magic</h2>
+      <Alert type="information" heading="Succes">
+        Everything is really good!
+      </Alert>
     </div>
   )
 }
-
-export default App;
