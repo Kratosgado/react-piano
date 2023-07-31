@@ -1,6 +1,6 @@
 import {  useEffect, useReducer, useRef, useMemo, useCallback } from "react";
 import { getPerson } from "./getPerson";
-import { Reset } from "./Resets";
+import { Reset } from "../Resets";
 
 function sillyExpensiveFunction() {
    console.log("Executing silly function");
