@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from "react";
+import {  useEffect, useReducer, useRef } from "react";
 import { getPerson } from "./getPerson";
 
 
@@ -22,7 +22,7 @@ type Action = | {
 function reducer(state: State, action: Action): State {
    switch (action.type) {
       case "initialized":
-         return { name: action.name, score: 0, loading: false };
+         return { name: action.name, score: 5, loading: false };
       case 'increment':
          return { ...state, score: state.score + 1 }
       case 'decrement':
@@ -35,17 +35,25 @@ function reducer(state: State, action: Action): State {
 }
 
 export const PersonScore = () => {
+
    const [{ name, score, loading }, dispatch] = useReducer(reducer, {
       name: undefined,
       score: 0,
       loading: true
    });
 
+   const addButtonRef = useRef<HTMLButtonElement>(null);
+
    useEffect(() => {
       getPerson().then(({ name }) => {
          dispatch({ type: 'initialized', name })
       });
    }, []);
+   useEffect(() => {
+      if (!loading) {
+         addButtonRef.current?.focus();
+      }
+   }, [loading]);
 
    if (loading) {
       return <div>Loading ...</div>
@@ -55,7 +63,9 @@ export const PersonScore = () => {
          <h3>
             {name}, {score}
          </h3>
-         <button onClick={()=> dispatch({type: 'increment'})}>Add</button>
+         <button
+            ref={addButtonRef}
+            onClick={() => dispatch({ type: 'increment' })}>Add</button>
          <button onClick={()=> dispatch({type: 'decrement'})}>Subtract</button>
          <button onClick={()=> dispatch({type: 'reset'})}>Reset</button>
       </div>
