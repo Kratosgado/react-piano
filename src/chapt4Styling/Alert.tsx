@@ -1,6 +1,7 @@
-
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import { useState } from "react";
-import styles from './Alert.module.css'
+
 
 type AlertProps = {
    type: "warning" | "information"
@@ -24,21 +25,52 @@ export const Alert = (props: AlertProps) => {
    };
 
    return (
-      <div className={`${styles.container} ${styles[type]}`}>
-         <div className={styles.header}>
+      <div css={
+         css`
+            display: inline-flex;
+            flex-direction: column;
+            text-align: left;
+            padding: 10px 15px;
+            border-radius: 4px;
+            border: 1px solid transparent;
+            color: ${type === "warning" ? "#e7650f" : "#118da0"};
+            background-color: ${type === "warning"
+            ? "#f3e8da"
+            : "#dcf1f3"};
+         `
+      }>
+         <div css={header}>
             <span
-               className={styles.headerIcon}
+               css={css`
+               width: 30px;
+               `}
                role="img"
                aria-label={type === "warning" ? "Warning" : "Information"}>
                {type === "warning" ? "⚠️" : "ℹ️"}</span>
-            <span className={styles.headerText}>{heading}</span>
+            <span css={css`
+               font-weight: bold;
+               `}>{heading}</span>
             {closable && (
-            <button className={styles.closeButton} aria-label="Close" onClick={handleCloseClick}>
+            <button css={closeButton} aria-label="Close" onClick={handleCloseClick}>
                <span role="img" aria-label="Close">X</span>
             </button>
          )}
          </div>
-         <div className={styles.content}>{children}</div>
+         <div css={css`
+            margin-left: 30px;
+            color: #000;
+            `}>{children}</div>
       </div>
    )
 }
+const header = css`
+   display: flex;
+   align-items: center;
+   margin-bottom: 5px;
+`
+const closeButton = css`
+   border: none;
+ background: transparent;
+ margin-left: auto;
+ cursor: pointer;
+`
