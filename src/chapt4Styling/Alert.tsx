@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { styled } from "styled-components";
+import {  Alerter } from "./styles";
 
 
-type AlertProps = {
+export type AlertProps = {
    type: "warning" | "information"
    heading: string
    children: React.ReactNode
@@ -23,12 +25,8 @@ export const Alert = (props: AlertProps) => {
    };
 
    return (
-      <div className={`inline-flex flex-col text-left px-4 py-3 rounded-md border-1 border-transparent
-         ${
-         type === "warning" ? 'text-amber-900' : 'text-teal-900'
-         } ${type === "warning" ? "bg-amber-50": 'bg-teal-50'}
-      `}>
-         <div className="flex items-center mb-1">
+      <Alerter {...props}>
+      <div className="flex items-center mb-1">
             <span
                 className="w-7"
                role="img"
@@ -43,6 +41,16 @@ export const Alert = (props: AlertProps) => {
          )}
          </div>
          <div  className="ml-7 text-black">{children}</div>
-      </div>
+      </Alerter>
    )
 }
+
+// export const DragPreviewWrapper = styled.div.attrs<DragPreviewProps>(
+//     ({ position: { x, y }, isPreview }) => ({
+//     style: {
+//       transform: `translate(${x}px, ${y}px) rotate(${isPreview ? "5deg" : "0deg"})`,
+//     },
+//   }))<{ position: Position; isPreview?: boolean }>`
+//     // Styles for DragPreviewWrapper
+//   `
+
